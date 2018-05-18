@@ -5,9 +5,13 @@ WORDLIST_FILENAME = "palavras.txt"
 GUESSES_NUMBER = 8
 
 def load_words_list():
-    in_file = open(WORDLIST_FILENAME, 'r')
-    line = in_file.readline()
-    word_list = str.split(line)
+    try:
+        in_file = open(WORDLIST_FILENAME, 'r')
+        line = in_file.readline()
+        word_list = str.split(line)
+    except:
+        print("File not found!")
+        quit()
     return word_list
 
 def random_words(word_list):
@@ -60,6 +64,12 @@ def welcome_game(secret_word):
     print ('I am thinking of a word that is', len(secret_word), 'letters long.')
     print ('And it has ', different_list, ' different letters.')
     print ('-------------------------------------\n')
+
+
+
+
+
+
 
 def hangman():
     word_list = load_words_list()
