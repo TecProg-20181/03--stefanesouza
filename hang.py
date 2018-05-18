@@ -45,7 +45,7 @@ def get_available_letters():
     available = string.ascii_lowercase
     return available
 
-def clean_letters(letters_guessed):
+def update_letters(letters_guessed):
     letters = get_available_letters()
     for letter in letters:
         if letter in letters_guessed:
@@ -57,6 +57,7 @@ def different_letters(secret_word):
     return len(different_list)
 
 def welcome_game(secret_word):
+    load_message()
     different_list = different_letters(secret_word)
 
     print ('\n-------------------------------------')
@@ -65,26 +66,22 @@ def welcome_game(secret_word):
     print ('And it has ', different_list, ' different letters.')
     print ('-------------------------------------\n')
 
-
 def end_game(secret_word, letters_guessed):
     if word_guessed(secret_word, letters_guessed) == True:
         print ('Congratulations, you won!\n')
     else:
         print ('Sorry, you ran out of guesses. The word was ', secret_word, '.\n')
 
-
-
 def hangman():
-    word_list = load_words_list()
-    secret_word = random_words(word_list)
     guesses = GUESSES_NUMBER
     letters_guessed = []
+    word_list = load_words_list()
+    secret_word = random_words(word_list)
     welcome = welcome_game(secret_word)
-    different_list = different_list = different_letters(secret_word)
-
+    different_list = different_letters(secret_word)
 
     while  word_guessed(secret_word, letters_guessed) == False and guesses > 0:
-        letters = clean_letters(letters_guessed)
+        letters = update_letters(letters_guessed)
 
         print ('   ATTENTION: You have ', guesses, 'guesses left.')
         print (' Available letters: ', letters)
@@ -117,10 +114,7 @@ def hangman():
         end_game(secret_word, letters_guessed)
 
 
-
-
 def play_game():
-    load_message()
     hangman()
 
 play_game()
