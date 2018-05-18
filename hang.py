@@ -14,14 +14,14 @@ def load_words_list():
         quit()
     return word_list
 
+def load_message():
+    print ("Loading word list from your file...")
+    words = load_words_list()
+    print (" Total of", len(words), "words loaded.")
+
 def random_words(word_list):
     secret_word = random.choice(word_list).lower()
     return secret_word
-
-def inicial_message():
-    print ("Loading word list from file...")
-    words = load_words_list()
-    print ("  ", len(words), "words loaded.")
 
 def word_guessed(secret_word, letters_guessed):
     for letter in secret_word:
@@ -32,14 +32,14 @@ def word_guessed(secret_word, letters_guessed):
     return True
 
 def get_guessed_word(secret_word, letters_guessed):
-     guessed = ''
+    guessed = ''
 
-     for letter in secret_word:
-         if letter in letters_guessed:
-             guessed += letter
-         else:
-             guessed += '_'
-     return guessed
+    for letter in secret_word:
+        if letter in letters_guessed:
+            guessed += letter
+        else:
+            guessed += '_'
+    return guessed
 
 def get_available_letters():
     available = string.ascii_lowercase
@@ -66,8 +66,11 @@ def welcome_game(secret_word):
     print ('-------------------------------------\n')
 
 
-
-
+def end_game(secret_word, letters_guessed):
+    if word_guessed(secret_word, letters_guessed) == True:
+        print ('Congratulations, you won!\n')
+    else:
+        print ('Sorry, you ran out of guesses. The word was ', secret_word, '.\n')
 
 
 
@@ -111,14 +114,13 @@ def hangman():
         print ('\n------------------------------------\n')
 
     else:
-        if word_guessed(secret_word, letters_guessed) == True:
-            print ('Congratulations, you won!\n')
-        else:
-            print ('Sorry, you ran out of guesses. The word was ', secret_word, '.\n')
-            quit()
+        end_game(secret_word, letters_guessed)
+
+
+
 
 def play_game():
-    inicial_message()
+    load_message()
     hangman()
 
 play_game()
